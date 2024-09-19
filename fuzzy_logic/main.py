@@ -20,12 +20,12 @@ class SemaphoreSystem:
         self.V1['many'] = fuzz.trapmf(self.V1.universe, [30, 40, 50, 50])
 
         self.V2['few'] = fuzz.trapmf(self.V2.universe, [0, 0, 15, 30])
-        self.V2['moderate'] = fuzz.trapmf(self.V2.universe, [0, 30, 45, 50])
-        self.V2['many'] = fuzz.trapmf(self.V2.universe, [35, 45, 60, 60])
+        self.V2['moderate'] = fuzz.trapmf(self.V2.universe, [15, 30, 45, 50])
+        self.V2['many'] = fuzz.trapmf(self.V2.universe, [45, 50, 60, 60])
 
-        self.T['short'] = fuzz.trapmf(self.T.universe, [10, 10, 20, 25])
-        self.T['medium'] = fuzz.trimf(self.T.universe, [20, 35, 50])
-        self.T['long'] = fuzz.trapmf(self.T.universe, [40, 50, 60, 60])
+        self.T['short'] = fuzz.trapmf(self.T.universe, [0, 0, 20, 35])
+        self.T['medium'] = fuzz.trimf(self.T.universe, [30, 35, 40])
+        self.T['long'] = fuzz.trapmf(self.T.universe, [35, 50, 60, 60])
 
     def rules(self):
         return [ctrl.Rule(self.V1['many'] & self.V2['few'], self.T['long']),
