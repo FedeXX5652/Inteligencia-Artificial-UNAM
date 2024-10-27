@@ -9,7 +9,7 @@ class PathVisualizer:
         """
         self.use_colors = use_colors
 
-    def visualize_path(self, matrix, path, explored, start, end):
+    def visualize_path(self, matrix, path, explored, start, end, title=None):
         """
         Visualizes the path found and the explored cells on a grid using Matplotlib.
         :param matrix: The matrix to visualize.
@@ -19,6 +19,7 @@ class PathVisualizer:
         :param end: The end position.
         """
         plt.figure(figsize=(10, 8))
+        plt.title(title)
         rows, cols = len(matrix), len(matrix[0])
 
         # Create a color grid
@@ -65,6 +66,5 @@ class PathVisualizer:
         ]
         plt.legend(handles=legend_elements, loc='upper right', fontsize=10, bbox_to_anchor=(1.1, 1))
 
-        plt.title('Pathfinding Visualization')
         plt.axis('off')  # Hide axis
         plt.show()

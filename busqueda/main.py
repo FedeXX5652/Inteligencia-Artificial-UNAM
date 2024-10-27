@@ -1,5 +1,7 @@
 from visualizer import PathVisualizer
-from searchers import *
+from bfs import BFSSearch
+from astar import AStarSearch
+from busqueda.searcher import *
 import numpy as np
 
 I = float('INF')
@@ -29,7 +31,7 @@ def main():
         print(f"Path found: {path_bfs}")
         print(f"Total cost: {cost_bfs}")
         print(f"Explored cells: {len(explored_bfs)}")
-        visualizer.visualize_path(matrix, path_bfs, explored_bfs, start, end)
+        visualizer.visualize_path(matrix, path_bfs, explored_bfs, start, end, "BFS")
 
     # Test A*
     print("\n=== A* Search ===")
@@ -39,7 +41,7 @@ def main():
         print(f"Path found: {path_astar}")
         print(f"Total cost: {cost_astar}")
         print(f"Explored cells: {len(explored_astar)}")
-        visualizer.visualize_path(matrix, path_astar, explored_astar, start, end)
+        visualizer.visualize_path(matrix, path_astar, explored_astar, start, end, "A*")
 
 if __name__ == "__main__":
     main()
