@@ -9,7 +9,7 @@ class PathVisualizer:
         """
         self.use_colors = use_colors
 
-    def visualize_path(self, matrix, path, explored, start, end, title=None):
+    def visualize_path(self, matrix, path, explored, start, end, title=None, save_image=False, filename='path_visualization.png'):
         """
         Visualizes the path found and the explored cells on a grid using Matplotlib.
         :param matrix: The matrix to visualize.
@@ -17,6 +17,9 @@ class PathVisualizer:
         :param explored: The cells explored.
         :param start: The start position.
         :param end: The end position.
+        :param title: Title for the plot.
+        :param save_image: Flag to save the visualization as an image.
+        :param filename: Filename for the saved image.
         """
         plt.figure(figsize=(10, 8))
         plt.title(title)
@@ -56,7 +59,7 @@ class PathVisualizer:
                 if cell_value != float('inf'):
                     plt.text(j, i, str(cell_value), ha='center', va='center', color='black')
 
-        # Add a legend outside the grid
+        # Add a legend outside the grid with an offset
         legend_elements = [
             plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='gray', markersize=10, label='Explored'),
             plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='yellow', markersize=10, label='Path'),
@@ -64,7 +67,12 @@ class PathVisualizer:
             plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='red', markersize=10, label='End'),
             plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='black', markersize=10, label='Obstacle'),
         ]
-        plt.legend(handles=legend_elements, loc='upper right', fontsize=10, bbox_to_anchor=(1.1, 1))
+        plt.legend(handles=legend_elements, loc='upper left', fontsize=10, bbox_to_anchor=(1, 1), borderaxespad=0.)
 
         plt.axis('off')  # Hide axis
-        plt.show()
+        
+        if save_image:
+            plt.savefig(filename, bbox_inches='tight')  # Save the figure to a file
+            print(f"Visualization saved as {filename}")
+        else:
+            plt.show()  # Show the plot

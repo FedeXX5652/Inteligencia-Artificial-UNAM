@@ -31,7 +31,7 @@ def main():
         print(f"Path found: {path_bfs}")
         print(f"Total cost: {cost_bfs}")
         print(f"Explored cells: {len(explored_bfs)}")
-        visualizer.visualize_path(matrix, path_bfs, explored_bfs, start, end, "BFS")
+        visualizer.visualize_path(matrix, path_bfs, explored_bfs, start, end, title="BFS Path", save_image=True, filename="bfs_path.png")
 
     # Test A*
     print("\n=== A* Search ===")
@@ -41,7 +41,7 @@ def main():
         print(f"Path found: {path_astar}")
         print(f"Total cost: {cost_astar}")
         print(f"Explored cells: {len(explored_astar)}")
-        visualizer.visualize_path(matrix, path_astar, explored_astar, start, end, "A*")
+        visualizer.visualize_path(matrix, path_astar, explored_astar, start, end, "A*", save_image=True, filename="astar_path.png")
 
 if __name__ == "__main__":
     main()
