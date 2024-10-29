@@ -3,36 +3,27 @@ from searcher import *
 
 class BFSSearch(SearchBase):
     def search(self, start, end):
-        self.explored = set()
-        
-        dist = [[I for _ in range(self.cols)] for _ in range(self.rows)]
-        dist[start[0]][start[1]] = 0
-        q = deque()
-        q.append((start[0], start[1]))
-
-        parent = {}
-        parent[start] = None
+        self.explored = set()  # To keep track of explored nodes
+        q = deque([start])  # Initialize queue with the starting node
+        parent = {start: None}  # Dictionary to keep track of parent nodes for path reconstruction
         
         while q:
-            current_x, current_y = q.popleft()
-            current = (current_x, current_y)
-
-            if current == end:
+            current = q.popleft()  # Get the current node from the queue
+            
+            if current == end:  # If we've reached the goal
                 path = []
                 while current is not None:
-                    path.append(current)
-                    current = parent.get(current)
-                path = path[::-1]
-                return path, self.get_path_cost(path), self.explored
+                    path.append(current)  # Backtrack to construct the path
+                    current = parent[current]
+                path.reverse()  # Reverse to get the path from start to end
+                return path, len(path) - 1, self.explored  # Return path and cost (number of edges)
             
-            self.explored.add(current)
-
+            self.explored.add(current)  # Mark current node as explored
+            
+            # Get neighbors for the current node
             for neighbor in self.get_neighbors(current):
-                new_x, new_y = neighbor
-
-                if dist[current_x][current_y] + self.matrix[new_x][new_y] < dist[new_x][new_y]:
-                    dist[new_x][new_y] = dist[current_x][current_y] + self.matrix[new_x][new_y]
-                    parent[neighbor] = current
-                    q.append((new_x, new_y))
+                if neighbor not in self.explored and neighbor not in q:  # Check if the neighbor has not been explored or added to the queue
+                    parent[neighbor] = current  # Set the parent of the neighbor
+                    q.append(neighbor)  # Add the neighbor to the queue
         
-        return None, I, self.explored
+        return None, I, self.explored  # Return None if no path is found

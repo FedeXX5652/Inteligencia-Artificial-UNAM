@@ -1,7 +1,7 @@
 from visualizer import PathVisualizer
 from bfs import BFSSearch
 from astar import AStarSearch
-from busqueda.searcher import *
+from searcher import *
 import numpy as np
 
 I = float('INF')
